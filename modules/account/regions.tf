@@ -1,4 +1,5 @@
 variable target_account_role_arn {}
+variable account_name {}
 
 module "config_rules_ireland" {
   source = "../config_rules"

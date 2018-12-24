@@ -1,4 +1,9 @@
-resource "random_id" "id_generator" { }
+resource "random_id" "id_generator" { 
+  byte_length = 8
+}
+
+data "aws_caller_identity" "current" { }
+
 
 resource "aws_iam_role" "access_key_check_role" {
   name = "AccessKeyCheckRole"
@@ -70,7 +75,7 @@ EOF
 }
 
 resource "aws_s3_bucket" "config_recorder_bucket" {
-  bucket = "jasbarto-config-bucket-${random_id.id_generator.hex}"
+  bucket = "jasbarto-config-bucket-${var.account_name}-${data.aws_caller_identity.current.account_id}"
   force_destroy = true
 }
 
