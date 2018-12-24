@@ -1,8 +1,10 @@
+variable config_rule_role_arn {}
+
 ## DEFINE LAMBDA FUNCTION
 resource "aws_lambda_function" "check_access_keys" {
   filename      = "check_access_keys.zip"
   function_name = "CheckAccessKeys"
-  role          = "${aws_iam_role.access_key_check_role.arn}"
+  role          = "${var.config_rule_role_arn}"
   handler       = "check_access_keys.handler"
   runtime       = "python3.7"
 }

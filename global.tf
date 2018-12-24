@@ -67,6 +67,11 @@ resource "aws_iam_role" "config_recorder_role" {
 EOF
 }
 
+resource "aws_s3_bucket" "config_recorder_bucket" {
+  bucket = "jasbarto-config-bucket"
+  force_destroy = true
+}
+
 resource "aws_iam_role_policy" "access_key_check_rule_policy" {
   name = "AccessKeyCheckRulePolicy"
 
@@ -82,7 +87,8 @@ resource "aws_iam_role_policy" "access_key_check_rule_policy" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "*"
+        "${aws_s3_bucket.config_recorder_bucket.arn}",
+        "${aws_s3_bucket.config_recorder_bucket.arn}/*"
       ]
     }
   ]
