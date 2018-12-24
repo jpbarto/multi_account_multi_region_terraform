@@ -1,3 +1,5 @@
+resource "random_id" "id_generator" { }
+
 resource "aws_iam_role" "access_key_check_role" {
   name = "AccessKeyCheckRole"
 
@@ -68,7 +70,7 @@ EOF
 }
 
 resource "aws_s3_bucket" "config_recorder_bucket" {
-  bucket = "jasbarto-config-bucket"
+  bucket = "jasbarto-config-bucket-${random_id.id_generator.hex}"
   force_destroy = true
 }
 
